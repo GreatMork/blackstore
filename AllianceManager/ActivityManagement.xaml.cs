@@ -159,11 +159,75 @@ namespace AllianceManager
         private void FilterText1_TextChanged(object sender, TextChangedEventArgs e)
         {
             RefreshAbsentUserFilter();
+            AbsentGroup.SelectedIndex = Math.Min(0, AbsentGroup.Items.Count - 1);
+        }
+
+        private void FilterText1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    AttendBtn_Click(null, null);
+                    FilterText1.Text = string.Empty;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void FilterText1_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Up:
+                    AbsentGroup.SelectedIndex = (AbsentGroup.SelectedIndex < 0) ?
+                        -1 : Math.Max(0, AbsentGroup.SelectedIndex - 1);
+                    e.Handled = true;
+                    break;
+                case Key.Down:
+                    AbsentGroup.SelectedIndex = (AbsentGroup.SelectedIndex < 0) ?
+                        -1 : Math.Min(AbsentGroup.Items.Count - 1, AbsentGroup.SelectedIndex + 1);
+                    e.Handled = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void FilterText2_TextChanged(object sender, TextChangedEventArgs e)
         {
             RefreshAttendUserFilter();
+            PresentGroup.SelectedIndex = Math.Min(0, PresentGroup.Items.Count - 1);
+        }
+
+        private void FilterText2_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Enter:
+                    DeAttendBtn_Click(null, null);
+                    FilterText2.Text = string.Empty;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void FilterText2_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Up:
+                    PresentGroup.SelectedIndex = (PresentGroup.SelectedIndex < 0) ?
+                        -1 : Math.Max(0, PresentGroup.SelectedIndex - 1);
+                    e.Handled = true;
+                    break;
+                case Key.Down:
+                    PresentGroup.SelectedIndex = (PresentGroup.SelectedIndex < 0) ?
+                        -1 : Math.Min(PresentGroup.Items.Count - 1, PresentGroup.SelectedIndex + 1);
+                    e.Handled = true;
+                    break;
+            }
         }
 
         private void AttendBtn_Click(object sender, RoutedEventArgs e)

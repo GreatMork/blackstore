@@ -35,7 +35,7 @@
             </Grid.ColumnDefinitions>
             <DockPanel Margin="5" Grid.Column="0">
                 <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center">未参加列表</Label>
-                <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText1" TextChanged="FilterText1_TextChanged" />
+                <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText1" TextChanged="FilterText1_TextChanged" KeyDown="FilterText1_KeyDown" PreviewKeyDown="FilterText1_PreviewKeyDown" />
                 <ListBox Name="AbsentGroup" DisplayMemberPath="Name" 
                      ItemsSource="{Binding Source={StaticResource UserCollectionViewSource1}}"
                      ItemContainerStyle="{Binding Source={StaticResource UserListBoxStyle}}">
@@ -43,7 +43,7 @@
             </DockPanel>
             <DockPanel Margin="5" Grid.Column="2">
                 <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center">参加列表</Label>
-                <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText2" TextChanged="FilterText2_TextChanged" />
+                <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText2" TextChanged="FilterText2_TextChanged" KeyDown="FilterText2_KeyDown" PreviewKeyDown="FilterText2_PreviewKeyDown"/>
                 <ListBox Name="PresentGroup" DisplayMemberPath="Name" 
                      ItemsSource="{Binding Source={StaticResource UserCollectionViewSource2}}"
                      ItemContainerStyle="{Binding Source={StaticResource UserListBoxStyle}}">
