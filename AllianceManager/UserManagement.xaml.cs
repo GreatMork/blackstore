@@ -45,6 +45,11 @@ namespace AllianceManager
             "会长", "副会长", "内政大臣", "国防大臣", "文化大臣", "公会之星", "精英", "会员", "学徒"
         };
 
+        public static string[] dutyCmdList = new string[]
+{
+            "{hz}", "{fhz}", "{nzdc}", "{gfdc}", "{whdc}", "{ghzx}", "{jy}", "{hy}", "{xt}"
+};
+
         private EditModeEnum editMode = EditModeEnum.Add;
 
         private readonly ObservableCollection<UserInfo> filterUserList = new ObservableCollection<UserInfo>();
@@ -66,7 +71,7 @@ namespace AllianceManager
             SexCombo.ItemsSource = sexList;
             CareerCombo.ItemsSource = careerList;
             DutyCombo.ItemsSource = dutyList;
-            
+            FilterText.ToolTip = "输入玩家昵称、拼英或拼英简写。\n也可以根据职务查找，如：\n\t会长：输入{hz}\n\t内政大臣：输入{nzdc}\n\t以此类推";
         }
 
         private void InitializeDataValue()
@@ -76,9 +81,6 @@ namespace AllianceManager
             users.ForEach(u => FilterUserList.Add(u));
             NameTxt.Text = string.Empty;
             IDTxt.Text = string.Empty;
-            SexCombo.SelectedIndex = 0;
-            CareerCombo.SelectedIndex = 0;
-            DutyCombo.SelectedIndex = 7;
             UserGroup.SelectedIndex = -1;
         }
 
@@ -121,6 +123,7 @@ namespace AllianceManager
                 item.IsRemoved = true;
                 DBAccess.UpdateUser(item);
                 RefreshUserFilter();
+                RefreshUserInfos();
             }
         }
 
@@ -163,6 +166,7 @@ namespace AllianceManager
                         DBAccess.UpdateUser(duplex);
                         UserEditArea.IsEnabled = false;
                         RefreshUserFilter();
+                        RefreshUserInfos();
                     }
                 }
                 else
@@ -196,6 +200,7 @@ namespace AllianceManager
             UserEditArea.IsEnabled = false;
             FilterUserList.Add(dbuser);
             RefreshUserFilter();
+            RefreshUserInfos();
         }
 
         private void EditUser()
@@ -238,6 +243,7 @@ namespace AllianceManager
             DBAccess.UpdateUser(item);
             UserEditArea.IsEnabled = false;
             RefreshUserFilter();
+            RefreshUserInfos();
         }
 
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
@@ -254,6 +260,14 @@ namespace AllianceManager
             var filterName = FilterText.Text.ToLower();
             if(string.IsNullOrEmpty(filterName)) return true;
 
+            for (int i = 0; i < dutyCmdList.Length; i++)
+            {
+                if (filterName.Contains(dutyCmdList[i]))
+                {
+                    return user.Duty == i;
+                }
+            }
+
             return user.Name.ToLower().Contains(filterName)
                 || user.Pinyin.ToLower().Contains(filterName)
                 || user.ShortName.ToLower().Contains(filterName);
@@ -265,6 +279,8 @@ namespace AllianceManager
             src.View.Refresh();
         }
 
+
+
         private void FilterText_TextChanged(object sender, TextChangedEventArgs e)
         {
             RefreshUserFilter();
@@ -273,6 +289,66 @@ namespace AllianceManager
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             InitializeDataValue();
+            RefreshUserInfos();
+            SexCombo.SelectedIndex = 0;
+            CareerCombo.SelectedIndex = 0;
+            DutyCombo.SelectedIndex = 7;
+        }
+
+        private void ClearDuty_Click(object sender, RoutedEventArgs e)
+        {
+            var btn = sender as Button;
+            var tag = btn.Tag as string;
+            var dutyArr = tag.Split(',');
+            FilterUserList.ToList().ForEach(u => 
+            {
+                if (dutyArr.Contains(u.Duty.ToString()))
+                {
+                    u.Duty = 7;
+                    DBAccess.UpdateUser(u);
+                }
+            });
+
+            RefreshUserFilter();
+            RefreshUserInfos();
+        }
+
+        private void RefreshUserInfos()
+        {
+            var sb = new StringBuilder();
+            var list = filterUserList.ToList();
+
+            sb.AppendLine(string.Format("公会成员一共 {0} 人，其中入编 {1} 人, 编外 {2} 人", list.Count, list.Count(u => !u.IsRemoved), list.Count(u => u.IsRemoved)));
+            sb.AppendLine("职务划分:");
+            sb.AppendLine(string.Format("\t会长：{0}\t副会长：{1}", 
+                string.Join("、", list.Where(u => u.Duty == 0).Select(u => u.Name)), 
+                string.Join("、", list.Where(u => u.Duty == 1).Select(u => u.Name))));
+            sb.AppendLine(string.Format("\t内政大臣：{0}",
+                string.Join("、", list.Where(u => u.Duty == 2).Select(u => u.Name))));
+            sb.AppendLine(string.Format("\t国防大臣：{0}",
+                string.Join("、", list.Where(u => u.Duty == 3).Select(u => u.Name))));
+            sb.AppendLine(string.Format("\t文化大臣：{0}",
+                string.Join("、", list.Where(u => u.Duty == 4).Select(u => u.Name))));
+            sb.AppendLine(string.Format("\t公会之星：{0}",
+                string.Join("、", list.Where(u => u.Duty == 5).Select(u => u.Name))));
+            sb.AppendLine("职业划分:");
+            for (int i = 0; i < careerList.Length; i++)
+            {
+                if ((i % 3) == 0)
+                {
+                    sb.Append("\t");
+                }
+
+                sb.Append(string.Format("{0}：{1} 人", careerList[i], list.Count(u => u.Career == i)));
+                sb.Append("\t");
+                if ((i + 1) % 3 == 0 && i != careerList.Length -1)
+                {
+                    sb.AppendLine();
+                }
+            }
+
+            SummaryBlock.Text = sb.ToString();
+            
         }
     }
 

@@ -14,8 +14,8 @@
         </CollectionViewSource>
     </UserControl.Resources>
     <DockPanel>
-        <StackPanel DockPanel.Dock="Right">
-            <StackPanel Orientation="Horizontal" Width="400">
+        <StackPanel DockPanel.Dock="Right" Width="400">
+            <StackPanel Orientation="Horizontal" >
                 <Button Width="100" Height="30" Margin="5,1" Name="UserAddBtn" Click="UserAddBtn_Click">添加新成员</Button>
                 <Button Width="100" Height="30" Margin="5,1" Name="UserEditBtn" IsEnabled="False" Click="UserEditBtn_Click">编辑成员</Button>
                 <Button Width="100" Height="30" Margin="5,1" Name="UserDeleteBtn" IsEnabled="False" Click="UserDeleteBtn_Click">移除成员</Button>
@@ -37,6 +37,17 @@
                     <Button Width="100" Height="25" HorizontalAlignment="Right" Name="UserSaveBtn" Click="UserSaveBtn_Click">保存</Button>
                 </StackPanel>
             </StackPanel>
+            <GroupBox Header="金手指">
+                <WrapPanel>
+                    <Button Width="180" Height="25" Margin="5" Tag="0,1" Click="ClearDuty_Click">清除会长/副会长职位</Button>
+                    <Button Width="180" Height="25" Margin="5" Tag="2,3,4" Click="ClearDuty_Click">清除各种大臣职位</Button>
+                    <Button Width="180" Height="25" Margin="5" Tag="5" Click="ClearDuty_Click">清除公会之星职位</Button>
+                    <Button Width="180" Height="25" Margin="5" Tag="6" Click="ClearDuty_Click">清除精英职位</Button>
+                </WrapPanel>
+            </GroupBox>
+            <GroupBox Header="成员信息统计">
+                <TextBlock Name="SummaryBlock" />
+            </GroupBox>
         </StackPanel>
         <DockPanel Margin="5">
             <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText" TextChanged="FilterText_TextChanged" />

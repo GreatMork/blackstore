@@ -180,6 +180,7 @@ namespace AllianceManager
                 if (sfd.ShowDialog() == true)
                 {
                     File.WriteAllText(sfd.FileName, sb.ToString());
+                    MessageBox.Show("导出成功");
                 }
             }
             catch (Exception ex) 
