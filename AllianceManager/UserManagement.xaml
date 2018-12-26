@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="AllianceManager.UserManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="UserCollectionViewSource" Source="{Binding FilterUserList}" Filter="CollectionViewSource_Filter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Career" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Right">
+            <StackPanel Orientation="Horizontal" Width="400">
+                <Button Width="100" Height="30" Margin="5,1" Name="UserAddBtn" Click="UserAddBtn_Click">添加新成员</Button>
+                <Button Width="100" Height="30" Margin="5,1" Name="UserEditBtn" IsEnabled="False" Click="UserEditBtn_Click">编辑成员</Button>
+                <Button Width="100" Height="30" Margin="5,1" Name="UserDeleteBtn" IsEnabled="False" Click="UserDeleteBtn_Click">移除成员</Button>
+            </StackPanel>
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <StackPanel Name="UserNameArea">
+                    <Label Width="110" Height="25" Margin="1" HorizontalContentAlignment="Right">昵称：</Label>
+                    <Label Width="110" Height="25" Margin="1" HorizontalContentAlignment="Right">玩家ID：</Label>
+                    <Label Width="110" Height="25" Margin="1" HorizontalContentAlignment="Right">性别：</Label>
+                    <Label Width="110" Height="25" Margin="1" HorizontalContentAlignment="Right">职业：</Label>
+                    <Label Width="110" Height="25" Margin="1" HorizontalContentAlignment="Right">职务：</Label>
+                </StackPanel>
+                <StackPanel Name="UserEditArea" IsEnabled="False">
+                    <TextBox Width="200" Height="25" Margin="1" HorizontalAlignment="Left" Name="NameTxt"/>
+                    <TextBox Width="200" Height="25" Margin="1" HorizontalAlignment="Left" Name="IDTxt"/>
+                    <ComboBox Width="80" Height="25" Margin="1" HorizontalAlignment="Left" Name="SexCombo" />
+                    <ComboBox Width="200" Height="25" Margin="1" HorizontalAlignment="Left" Name="CareerCombo" />
+                    <ComboBox Width="200" Height="25" Margin="1" HorizontalAlignment="Left" Name="DutyCombo"/>
+                    <Button Width="100" Height="25" HorizontalAlignment="Right" Name="UserSaveBtn" Click="UserSaveBtn_Click">保存</Button>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <DockPanel Margin="5">
+            <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText" TextChanged="FilterText_TextChanged" />
+            <ListBox Name="UserGroup" DisplayMemberPath="Name" 
+                     SelectionChanged="UserGroup_SelectionChanged" 
+                     ItemsSource="{Binding Source={StaticResource UserCollectionViewSource}}"
+                     ItemContainerStyle="{Binding Source={StaticResource UserListBoxStyle}}">
+            </ListBox>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

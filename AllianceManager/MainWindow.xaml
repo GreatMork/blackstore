@@ -1,0 +1,32 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:AllianceManager" x:Class="AllianceManager.MainWindow"
+        Title="黑店^欢迎您的到来" Height="600" Width="900" WindowStartupLocation="CenterScreen" Icon="Images/bitbug_favicon.ico">
+    <Grid>
+        <TabControl TabStripPlacement="Left">
+            <TabItem Header="欢迎光临" Width="120" Height="30">
+                <local:Welcome />
+            </TabItem>
+            <TabItem Header="成员管理" Width="120" Height="30">
+                <local:UserManagement />
+            </TabItem>
+            <TabItem Header="副本安排" Width="120" Height="30">
+                <local:RaidManagement />
+            </TabItem>
+            <TabItem Header="活动签到" Width="120" Height="30">
+                <local:ActivityManagement />
+            </TabItem>
+            <TabItem Header="签到查询" Width="120" Height="30">
+                <local:SearchManagement />
+            </TabItem>
+            <TabItem Header="统计导出" Width="120" Height="30">
+                <local:SummaryManagement />
+            </TabItem>
+            <TabItem Header="除名列表" Width="120" Height="30">
+                <local:UserBlackList />
+            </TabItem>
+            
+        </TabControl>
+    </Grid>
+</Window>

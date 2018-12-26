@@ -1,0 +1,113 @@
+﻿<Application x:Class="AllianceManager.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml" Exit="Application_Exit">
+    <Application.Resources>
+        <Style x:Key="UserListBoxStyle" TargetType="ListBoxItem">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="DarkGray" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                             VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                             TextBlock.Foreground="{TemplateBinding Foreground}" Margin="10,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Career}" Value="0">
+                    <Setter Property="Background" Value="#FFC39739" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="1">
+                    <Setter Property="Background" Value="#FFC39739" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="2">
+                    <Setter Property="Background" Value="#FFC39739" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="3">
+                    <Setter Property="Background" Value="#FFF02525" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="4">
+                    <Setter Property="Background" Value="#FFF02525" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="5">
+                    <Setter Property="Background" Value="#FFF02525" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="6">
+                    <Setter Property="Background" Value="#FFD6C163" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="7">
+                    <Setter Property="Background" Value="#FFD6C163" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="8">
+                    <Setter Property="Background" Value="#FFD6C163" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="9">
+                    <Setter Property="Background" Value="#FF275BCB" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="10">
+                    <Setter Property="Background" Value="#FF275BCB" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="11">
+                    <Setter Property="Background" Value="#FF275BCB" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="12">
+                    <Setter Property="Background" Value="#FF33A9EC" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="13">
+                    <Setter Property="Background" Value="#FF33A9EC" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="14">
+                    <Setter Property="Background" Value="#FF33A9EC" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="15">
+                    <Setter Property="Background" Value="#FFA73ECF" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="16">
+                    <Setter Property="Background" Value="#FFA73ECF" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="17">
+                    <Setter Property="Background" Value="#FFA73ECF" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="18">
+                    <Setter Property="Background" Value="#FFC7C7C7" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="19">
+                    <Setter Property="Background" Value="#FFC7C7C7" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="20">
+                    <Setter Property="Background" Value="#FFC7C7C7" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="21">
+                    <Setter Property="Background" Value="#FFFF80CB" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="22">
+                    <Setter Property="Background" Value="#FFFF80CB" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="23">
+                    <Setter Property="Background" Value="#FFFF80CB" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="24">
+                    <Setter Property="Background" Value="#FF96CB62" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="25">
+                    <Setter Property="Background" Value="#FF96CB62" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Career}" Value="26">
+                    <Setter Property="Background" Value="#FF96CB62" />
+                </DataTrigger>
+                <Trigger Property="IsSelected" Value="true">
+                    <Setter Property="Background" Value="Black"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Application.Resources>
+</Application>

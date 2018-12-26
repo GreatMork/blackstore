@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="AllianceManager.ActivityManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:local="clr-namespace:AllianceManager"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="UserCollectionViewSource1" Source="{Binding FilterUserList}" Filter="CollectionViewSource_Filter">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Career" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="UserCollectionViewSource2" Source="{Binding FilterUserList}" Filter="CollectionViewSource_Filter_1">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Career" Direction="Ascending" />
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" Margin="5">
+            <Calendar FirstDayOfWeek="Monday" DisplayDateStart="2018/09/29" Name="CurrentDate" 
+                      local:CalandarHelper.SingleClickDefocus="True"
+                      SelectedDatesChanged="CurrentDate_SelectedDatesChanged"/>
+            <Label VerticalAlignment="Center" Width="100" HorizontalContentAlignment="Right">选择活动：</Label>
+            <ComboBox VerticalAlignment="Center" Width="200" Name="ActivityCombo" ItemsSource="{Binding ActivityList}" SelectionChanged="ComboBox_SelectionChanged" />
+        </StackPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <DockPanel Margin="5" Grid.Column="0">
+                <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center">未参加列表</Label>
+                <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText1" TextChanged="FilterText1_TextChanged" />
+                <ListBox Name="AbsentGroup" DisplayMemberPath="Name" 
+                     ItemsSource="{Binding Source={StaticResource UserCollectionViewSource1}}"
+                     ItemContainerStyle="{Binding Source={StaticResource UserListBoxStyle}}">
+                </ListBox>
+            </DockPanel>
+            <DockPanel Margin="5" Grid.Column="2">
+                <Label DockPanel.Dock="Top" HorizontalContentAlignment="Center">参加列表</Label>
+                <TextBox Height="30" DockPanel.Dock="Top" Name="FilterText2" TextChanged="FilterText2_TextChanged" />
+                <ListBox Name="PresentGroup" DisplayMemberPath="Name" 
+                     ItemsSource="{Binding Source={StaticResource UserCollectionViewSource2}}"
+                     ItemContainerStyle="{Binding Source={StaticResource UserListBoxStyle}}">
+                </ListBox>
+            </DockPanel>
+            <StackPanel VerticalAlignment="Center" Grid.Column="1">
+                <Button Margin="5,50" Content="→" FontSize="20" FontWeight="Bold" Name="AttendBtn" Click="AttendBtn_Click" />
+                <Button Margin="5,50" Content="←" FontSize="20" FontWeight="Bold" Name="DeAttendBtn" Click="DeAttendBtn_Click" />
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>
