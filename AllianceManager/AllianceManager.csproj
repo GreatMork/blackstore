@@ -100,6 +100,9 @@
     <Compile Include="ActivityManagement.xaml.cs">
       <DependentUpon>ActivityManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdvanceMode.xaml.cs">
+      <DependentUpon>AdvanceMode.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CalandarHelper.cs" />
     <Compile Include="CareerInfo.cs" />
     <Compile Include="DBAccess.cs" />
@@ -124,6 +127,10 @@
       <DependentUpon>Welcome.xaml</DependentUpon>
     </Compile>
     <Page Include="ActivityManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdvanceMode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
