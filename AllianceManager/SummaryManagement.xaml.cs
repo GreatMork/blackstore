@@ -156,7 +156,71 @@ namespace AllianceManager
 
         private void ShowListChartByPosition()
         {
-            throw new Exception("尽请期待");
+            if (null == _savedList || _savedList.Count == 0) return;
+            var selectlist = from s in _savedList
+                             group s by s.UserId into g
+                             from u in _userList
+                             where g.Key == u.Id
+                             select new
+                             {
+                                 Name = u.Name,
+                                 Position = GetPosition(u.Career),
+                                 Color = Brushes.Blue,
+                                 Count = g.Count(s => s.UserId == u.Id)
+                             };
+            var careerList = from c in selectlist
+                             group c by c.Position into g
+                             select new
+                             {
+                                 Name = g.Key == 0 ? "坦克" : g.Key == 2 ? "治疗" : "输出",
+                                 Count = g.Count()
+                             };
+            var orderList = careerList.OrderByDescending(s => s.Count);
+
+            Chart chart = new Chart();
+            chart.Width = 500;
+            chart.Height = 300;
+            chart.AnimationEnabled = true;
+
+            Title title = new Title();
+            title.Text = "出勤统计表(坦克/输出/治疗划分)";
+            chart.Titles.Add(title);
+
+            DataSeries dataSeries = new DataSeries();
+            dataSeries.RenderAs = RenderAs.Pie;
+
+            foreach (var item in orderList)
+            {
+                var dataPoint = new DataPoint();
+                dataPoint.YValue = item.Count;
+                dataPoint.AxisXLabel = item.Name;
+                dataSeries.DataPoints.Add(dataPoint);
+            }
+
+            chart.Series.Add(dataSeries);
+            ChartView.Child = chart;
+        }
+
+        private int GetPosition(int career)
+        {
+            switch(career)
+            {
+                case 0:
+                case 1:
+                case 12:
+                case 21:
+                case 23:
+                    return 0;
+                case 5:
+                case 17:
+                case 18:
+                case 19:
+                case 20:
+                case 24:
+                    return 2;
+                default:
+                    return 1;
+            }
         }
 
         private void ExportBtn_Click(object sender, RoutedEventArgs e)
