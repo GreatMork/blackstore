@@ -114,7 +114,7 @@ namespace AllianceManager
         {
             var user = item as UserInfo;
             if (user == null) return false;
-            if (user.IsRemoved) return false;
+            //if (user.IsRemoved) return false;
             if (attendInfos.Any(a => a.UserId == user.Id)) return false;
             if (ActivityCombo.SelectedIndex < 0) return false;
 
@@ -130,7 +130,7 @@ namespace AllianceManager
         {
             var user = item as UserInfo;
             if (user == null) return false;
-            if (user.IsRemoved) return false;
+            //if (user.IsRemoved) return false;
             if (!attendInfos.Any(a => a.UserId == user.Id)) return false;
             if (ActivityCombo.SelectedIndex < 0) return false;
 
@@ -147,6 +147,8 @@ namespace AllianceManager
             CollectionViewSource src = (CollectionViewSource)this.FindResource("UserCollectionViewSource1");
             if (src.View == null) return;
             src.View.Refresh();
+
+            AbsentCount.Content = AbsentGroup.Items.Count.ToString();
         }
 
         private void RefreshAttendUserFilter()
@@ -154,6 +156,8 @@ namespace AllianceManager
             CollectionViewSource src = (CollectionViewSource)this.FindResource("UserCollectionViewSource2");
             if (src.View == null) return;
             src.View.Refresh();
+
+            PresentCount.Content = PresentGroup.Items.Count.ToString();
         }
 
         private void FilterText1_TextChanged(object sender, TextChangedEventArgs e)
