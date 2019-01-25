@@ -33,6 +33,10 @@
                         <ComboBoxItem>战锤大厅(普通)</ComboBoxItem>
                         <ComboBoxItem>战锤深渊(普通)</ComboBoxItem>
                         <ComboBoxItem>战锤之巅(普通)</ComboBoxItem>
+                        <ComboBoxItem>巨龙的天空(冒险)</ComboBoxItem>
+                        <ComboBoxItem>战锤大厅(冒险)</ComboBoxItem>
+                        <ComboBoxItem>战锤深渊(冒险)</ComboBoxItem>
+                        <ComboBoxItem>战锤之巅(冒险)</ComboBoxItem>
                     </ComboBox>
                     <Button Margin="5,0" Width="100" Name="SearchBtn" Click="SearchBtn_Click">检索</Button>
                 </StackPanel>
@@ -41,6 +45,8 @@
                     <ComboBox Width="220" SelectedIndex="0" Name="SectionCombo" SelectionChanged="SectionCombo_SelectionChanged">
                         <ComboBoxItem>职业划分</ComboBoxItem>
                         <ComboBoxItem>坦克/输出/治疗划分</ComboBoxItem>
+                        <ComboBoxItem>全勤人员</ComboBoxItem>
+                        <ComboBoxItem>僵尸人员</ComboBoxItem>
                     </ComboBox>
                 </StackPanel>
             </StackPanel>

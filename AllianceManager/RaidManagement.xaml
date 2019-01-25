@@ -35,6 +35,10 @@
                             <ComboBoxItem>战锤大厅(普通)</ComboBoxItem>
                             <ComboBoxItem>战锤深渊(普通)</ComboBoxItem>
                             <ComboBoxItem>战锤之巅(普通)</ComboBoxItem>
+                            <ComboBoxItem>巨龙的天空(冒险)</ComboBoxItem>
+                            <ComboBoxItem>战锤大厅(冒险)</ComboBoxItem>
+                            <ComboBoxItem>战锤深渊(冒险)</ComboBoxItem>
+                            <ComboBoxItem>战锤之巅(冒险)</ComboBoxItem>
                         </ComboBox>
                         <ComboBox Margin="10" Width="100"  SelectedIndex="14" Name="RaidTime">
                             <ComboBoxItem>[13:00]</ComboBoxItem>

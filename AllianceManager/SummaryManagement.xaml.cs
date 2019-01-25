@@ -102,6 +102,12 @@ namespace AllianceManager
                     case 1:
                         ShowListChartByPosition();
                         break;
+                    case 2:
+                        ShowListChartByMostActive();
+                        break;
+                    case 3:
+                        ShowListChartByMostDeath();
+                        break;
                 }
                 ExportBtn.IsEnabled = true;
                 SectionArea.IsEnabled = true;
@@ -133,13 +139,14 @@ namespace AllianceManager
             chart.Width = 500;
             chart.Height = 300;
             chart.AnimationEnabled = true;
+            chart.View3D = true;
 
             Title title = new Title();
             title.Text = "出勤统计表(职业划分)";
             chart.Titles.Add(title);
 
             DataSeries dataSeries = new DataSeries();
-            dataSeries.RenderAs = RenderAs.Column;
+            dataSeries.RenderAs = RenderAs.Bar;
 
             foreach (var item in orderList)
             {
@@ -181,6 +188,7 @@ namespace AllianceManager
             chart.Width = 500;
             chart.Height = 300;
             chart.AnimationEnabled = true;
+            chart.View3D = true;
 
             Title title = new Title();
             title.Text = "出勤统计表(坦克/输出/治疗划分)";
@@ -193,6 +201,81 @@ namespace AllianceManager
             {
                 var dataPoint = new DataPoint();
                 dataPoint.YValue = item.Count;
+                dataPoint.AxisXLabel = item.Name;
+                dataSeries.DataPoints.Add(dataPoint);
+            }
+
+            chart.Series.Add(dataSeries);
+            ChartView.Child = chart;
+        }
+
+        private void ShowListChartByMostActive()
+        {
+            if (null == _savedList || _savedList.Count == 0) return;
+            var selectlist = from s in _savedList
+                             group s by s.UserId into g
+                             from u in _userList
+                             where g.Key == u.Id
+                             select new
+                             {
+                                 Name = u.Name,
+                                 Color = Brushes.Blue,
+                                 Count = g.Count(s => s.UserId == u.Id)
+                             };
+
+            var orderList = selectlist.OrderByDescending(s => s.Count);
+            var maxCount = orderList.Count() > 0 ? orderList.First().Count : 0;
+            var activeList = orderList.Where(o => o.Count == maxCount);
+
+            Chart chart = new Chart();
+            chart.Width = 500;
+            chart.Height = 300;
+            chart.AnimationEnabled = true;
+            chart.View3D = true;
+
+            Title title = new Title();
+            title.Text = "全勤人员";
+            chart.Titles.Add(title);
+
+            DataSeries dataSeries = new DataSeries();
+            dataSeries.RenderAs = RenderAs.Bar;
+
+            foreach (var item in activeList)
+            {
+                var dataPoint = new DataPoint();
+                dataPoint.YValue = item.Count;
+                dataPoint.AxisXLabel = item.Name;
+                dataPoint.Background = item.Color;
+                dataSeries.DataPoints.Add(dataPoint);
+            }
+
+            chart.Series.Add(dataSeries);
+            ChartView.Child = chart;
+        }
+
+        private void ShowListChartByMostDeath()
+        {
+            if (null == _savedList || _savedList.Count == 0) return;
+            var activeIds = _savedList.GroupBy(s => s.UserId).Select(i => i.First().UserId);
+            var selectlist = _userList.Where(r => !activeIds.Contains(r.Id));
+
+            Chart chart = new Chart();
+            chart.Width = 500;
+            chart.Height = 300;
+            chart.AnimationEnabled = true;
+            chart.View3D = true;
+
+            Title title = new Title();
+            title.Text = "僵尸人员";
+            chart.Titles.Add(title);
+
+            DataSeries dataSeries = new DataSeries();
+            dataSeries.RenderAs = RenderAs.Bar;
+
+            foreach (var item in selectlist)
+            {
+                var dataPoint = new DataPoint();
+                dataPoint.YValue = 1;
                 dataPoint.AxisXLabel = item.Name;
                 dataSeries.DataPoints.Add(dataPoint);
             }
