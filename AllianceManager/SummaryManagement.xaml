@@ -50,8 +50,13 @@
                     </ComboBox>
                 </StackPanel>
             </StackPanel>
-            <Button Margin="20" Width="100" DockPanel.Dock="Bottom" HorizontalAlignment="Right" IsEnabled="False" Name="ExportBtn" Click="ExportBtn_Click">导出TXT</Button>
-            <Viewbox x:Name="ChartView"   />
+            <StackPanel Margin="20" Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Right" IsEnabled="False" Name="ExportStack">
+                <Button Margin="2" Width="100" Name="ExportTxtBtn" Click="ExportTxtBtn_Click">导出TXT</Button>
+                <Button Margin="2" Width="100" Name="ExportImageBtn" Click="ExportImageBtn_Click">导出JPG</Button>
+            </StackPanel>
+            
+            
+            <Border x:Name="ChartView"   />
         </DockPanel>
 
     </Grid>

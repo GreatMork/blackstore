@@ -40,15 +40,67 @@ namespace AllianceManager
             "吟游诗人", "神射手", "狩魔猎人"
         };
 
+        public static string[] careerCmdList = new string[]
+        {
+            "[tw]", "[shz]", "[jds]",
+            "[kzs]", "[wqds]", "[zzg]",
+            "[js]", "[mjs]", "[ywz]",
+            "[lyyz]", "[syz]", "[shfs]",
+            "[zdfs]", "[asxz]", "[sjxz]",
+            "[hdss]", "[slfs]", "[xxg]",
+            "[zj]", "[sz]", "[gmsz]",
+            "[stws]", "[spz]", "[lqs]",
+            "[yysr]", "[sss]", "[smlr]"
+        };
+
+        public static string[] careerCmdList3 = new string[]
+        {
+            "[tw]", "[sh]", "[jd]",
+            "[kz]", "[wq]", "[zz]",
+            "[js]", "[mj]", "[yw]",
+            "[hf]", "[bf]", "[sh]",
+            "[zf]", "[af]", "[sj]",
+            "[hd]", "[sl]", "[xx]",
+            "[zj]", "[sz]", "[gm]",
+            "[st]", "[sp]", "[lq]",
+            "[gn]", "[sss]", "[sm]"
+        };
+
+        public static string[] careerCmdList2 = new string[]
+        {
+            "[zs]", 
+            "[ds]", 
+            "[dz]", 
+            "[fs]", 
+            "[mds]",
+            "[ss]", 
+            "[ms]",
+            "[qs]", 
+            "[lr]"
+        };
+
+        public static Color[] careerColor = new Color[]
+        {
+            Color.FromArgb(0xFF,0xC3,0x97,0x39),Color.FromArgb(0xFF,0xC3,0x97,0x39),Color.FromArgb(0xFF,0xC3,0x97,0x39),
+            Color.FromArgb(0xFF,0xF0,0x25,0x25),Color.FromArgb(0xFF,0xF0,0x25,0x25),Color.FromArgb(0xFF,0xF0,0x25,0x25),
+            Color.FromArgb(0xFF,0xD6,0xC1,0x63),Color.FromArgb(0xFF,0xD6,0xC1,0x63),Color.FromArgb(0xFF,0xD6,0xC1,0x63),
+            Color.FromArgb(0xFF,0x27,0x5B,0xCB),Color.FromArgb(0xFF,0x27,0x5B,0xCB),Color.FromArgb(0xFF,0x27,0x5B,0xCB),
+            Color.FromArgb(0xFF,0x33,0xA9,0xEC),Color.FromArgb(0xFF,0x33,0xA9,0xEC),Color.FromArgb(0xFF,0x33,0xA9,0xEC),
+            Color.FromArgb(0xFF,0xA7,0x3E,0xCF),Color.FromArgb(0xFF,0xA7,0x3E,0xCF),Color.FromArgb(0xFF,0xA7,0x3E,0xCF),
+            Color.FromArgb(0xFF,0xC7,0xC7,0xC7),Color.FromArgb(0xFF,0xC7,0xC7,0xC7),Color.FromArgb(0xFF,0xC7,0xC7,0xC7),
+            Color.FromArgb(0xFF,0xFF,0x80,0xCB),Color.FromArgb(0xFF,0xFF,0x80,0xCB),Color.FromArgb(0xFF,0xFF,0x80,0xCB),
+            Color.FromArgb(0xFF,0x96,0xCB,0x62),Color.FromArgb(0xFF,0x96,0xCB,0x62),Color.FromArgb(0xFF,0x96,0xCB,0x62)
+        };
+
         public static string[] dutyList = new string[]
         {
             "会长", "副会长", "内政大臣", "国防大臣", "文化大臣", "公会之星", "精英", "会员", "学徒"
         };
 
         public static string[] dutyCmdList = new string[]
-{
+        {
             "{hz}", "{fhz}", "{nzdc}", "{gfdc}", "{whdc}", "{ghzx}", "{jy}", "{hy}", "{xt}"
-};
+        };
 
         private EditModeEnum editMode = EditModeEnum.Add;
 
@@ -265,6 +317,30 @@ namespace AllianceManager
                 if (filterName.Contains(dutyCmdList[i]))
                 {
                     return user.Duty == i;
+                }
+            }
+
+            for (int i = 0; i < careerCmdList.Length; i++)
+            {
+                if (filterName.Contains(careerCmdList[i]))
+                {
+                    return user.Career == i;
+                }
+            }
+
+            for (int i = 0; i < careerCmdList3.Length; i++)
+            {
+                if (filterName.Contains(careerCmdList3[i]))
+                {
+                    return user.Career == i;
+                }
+            }
+
+            for (int i = 0; i < careerCmdList2.Length; i++)
+            {
+                if (filterName.Contains(careerCmdList2[i]))
+                {
+                    return user.Career/3 == i;
                 }
             }
 
